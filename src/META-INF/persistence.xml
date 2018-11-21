@@ -13,7 +13,6 @@
 		<!-- entidades mapeadas -->
 		<class>usuario.Usuario</class>
 		<class>mail.ServicoEmail</class>
-		<class>pessoa.Pessoa</class>
 
 		<properties>
 			<!-- dados da conexao -->
