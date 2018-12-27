@@ -1,86 +1,78 @@
 package mail;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import usuario.Usuario;
 
 @Entity
 @Table(name="servicosEmail")
-@NamedQueries({
-	@NamedQuery(name="BUSCA_CONTA_EMAIL_POR_NOME", query="from ServicoEmail where nome=:nome")
-})
 public class ServicoEmail {
 
 	@Id
-	private int idUsuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idServicoEmail", updatable = false, nullable = false)
+	private Long idServicoEmail;
+	@ManyToOne
+	private Usuario usuario;
+	@Column(length = 64)
 	private String nome;
+	@Column(length = 64)
 	private String host;
+	@Column(length = 4)
 	private String porta;
-	private String usuario;
+	@Column(length = 64)
+	private String login;
+	@Column(length = 64)
 	private String senha;
-	
-	public ServicoEmail(int idUsuario, String nome, String host, String porta, String usuario, String senha) {
-		super();
-		this.idUsuario = idUsuario;
-		this.nome = nome;
-		this.host = host;
-		this.porta = porta;
-		this.usuario = usuario;
-		this.senha = senha;
+	public Long getIdServicoEmail() {
+		return idServicoEmail;
 	}
-	
-	public ServicoEmail() {
-		
+	public void setIdServicoEmail(Long idServicoEmail) {
+		this.idServicoEmail = idServicoEmail;
 	}
-
-	protected int getIdUsuario() {
-		return idUsuario;
-	}
-
-	protected void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-	protected String getNome() {
-		return nome;
-	}
-
-	protected void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	protected String getHost() {
-		return host;
-	}
-
-	protected void setHost(String host) {
-		this.host = host;
-	}
-
-	protected String getPorta() {
-		return porta;
-	}
-
-	protected void setPorta(String porta) {
-		this.porta = porta;
-	}
-
-	protected String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
-
-	protected void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	protected String getSenha() {
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getHost() {
+		return host;
+	}
+	public void setHost(String host) {
+		this.host = host;
+	}
+	public String getPorta() {
+		return porta;
+	}
+	public void setPorta(String porta) {
+		this.porta = porta;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public String getSenha() {
 		return senha;
 	}
-
-	protected void setSenha(String senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	
 	
 }

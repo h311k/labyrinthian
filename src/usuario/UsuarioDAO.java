@@ -2,17 +2,13 @@ package usuario;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
 import conexao.FabricaConexao;
-import mail.ServicoEmailController;
 
 public class UsuarioDAO {
 
@@ -20,34 +16,27 @@ public class UsuarioDAO {
 	 * 
 	 * Valida o login de acesso ou retorna mensagem de erro caso contrario.
 	 * 
-	 * @param user - Usuario digitado no form de login
+	 * @param idUsuario - Usuario digitado no form de login
 	 * @param pass - Password digitado no form de login
 	 */
-	protected Usuario validaLogin(String user, String pass) {
+	protected Usuario validaLogin(String idUsuario, String pass) {
 		pass=encriptaSenha(pass);
-		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		Query query = manager.createNamedQuery("AUTENTICA_USUARIO", Usuario.class);
-		query.setParameter("email", user);
-		query.setParameter("senha", pass);
 		Usuario usuario;
-		try {
-			usuario = (Usuario) query.getSingleResult();
-		} catch(NoResultException e) {
-			usuario=null;
+		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
+		usuario = manager.find(Usuario.class, idUsuario);
+		if(usuario !=null && pass.equals(usuario.getSenha())) {
+			return usuario;
+		} else {
+			return null;
 		}	
-		return usuario;	
 	}
 	
-	protected boolean validaEmail(String email) {
-		boolean existente;
+	protected boolean validaEmail(String idUsuario) {
+		boolean existente=false;
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		Query query = manager.createNamedQuery("BUSCA_USUARIO_POR_EMAIL", Usuario.class);
-		query.setParameter("email", email);
-		try {
-			query.getSingleResult();
+		Usuario usuario = manager.find(Usuario.class, idUsuario);
+		if(usuario!=null) {
 			existente=true;
-		} catch(NoResultException e) {
-			existente=false;
 		}
 		return existente;
 	}
@@ -60,7 +49,7 @@ public class UsuarioDAO {
 		Date now = new Date();  
 		pass=encriptaSenha(pass);
 		Usuario usuario = new Usuario();
-		usuario.setEmail(user);
+		usuario.setIdUsuario(user);
 		usuario.setSenha(pass);
 		usuario.setAtivo(false);
 		usuario.setDataInscricao(now);
@@ -69,7 +58,7 @@ public class UsuarioDAO {
 		manager.persist(usuario);
 		manager.getTransaction().commit();
 		manager.close();	
-		enviaEmailAtivacao(usuario);
+		//enviaEmailAtivacao(usuario);
 	}
 	/**
 	 * Ativa usuario para a criacao de perfil
@@ -99,27 +88,21 @@ public class UsuarioDAO {
 	 * Envia e-mail de ativacao para o usuario no momento da criacao da conta
 	 * @param usuario - email do usuario criado
 	 */
-	private void enviaEmailAtivacao(Usuario usuario) {
-		ServicoEmailController sec = new ServicoEmailController();
-		//Utiliza a conta de email do admin para enviar email de ativacao
-		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		Query query = manager.createNamedQuery("BUSCA_USUARIO_POR_EMAIL", Usuario.class);
-		query.setParameter("email", usuario.getEmail());
-		try {
-			usuario = (Usuario)query.getSingleResult();
-		} catch(NoResultException e) {
-			e.printStackTrace();
-		}
-		String url = "http://localhost:8080/labyrinthian"; //DadosServidor.getUrlBase();
-		url+="/ativar-conta.xhtml?idUsuario="+usuario.getIdUsuario();
-		String mensagem = 
-				"<h3>OlÁ</h3>"
-				+"<br/><br/>"
-				+"<p>Obrigado por se cadastrar no Namastenso.</p>"
-				+"<br/>"
-				+"<p>Para ativar sua conta e criar seu perfil, <a href="+url+">clique aqui<a></p>";
-		sec.enviaEmail(1, "Webmaster@namastenso.com", usuario.getEmail(), "Ative sua conta", mensagem);
-	}
+//	private void enviaEmailAtivacao(Usuario usuario) {
+//		ServicoEmailController sec = new ServicoEmailController();
+//		//Utiliza a conta de email do admin para enviar email de ativacao
+//		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
+//		Usuario usuario = manager.find(Usuario.class, idUsuario);
+//		String url = "http://localhost:8080/labyrinthian"; //DadosServidor.getUrlBase();
+//		url+="/ativar-conta.xhtml?idUsuario="+usuario.getIdUsuario();
+//		String mensagem = 
+//				"<h3>Olï¿½</h3>"
+//				+"<br/><br/>"
+//				+"<p>Obrigado por se cadastrar no Namastenso.</p>"
+//				+"<br/>"
+//				+"<p>Para ativar sua conta e criar seu perfil, <a href="+url+">clique aqui<a></p>";
+//		sec.enviaEmail(1, "Webmaster@namastenso.com", usuario.getIdUsuario(), "Ative sua conta", mensagem);
+//	}
 	
 	
 	/**
