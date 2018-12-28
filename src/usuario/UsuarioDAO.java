@@ -20,6 +20,9 @@ public class UsuarioDAO {
 	 * @param pass - Password digitado no form de login
 	 */
 	protected Usuario validaLogin(String idUsuario, String pass) {
+		if(pass==null) {
+			pass="";
+		}
 		pass=encriptaSenha(pass);
 		Usuario usuario;
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
