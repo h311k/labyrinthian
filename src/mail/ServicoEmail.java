@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import usuario.Usuario;
+import usuario.UsuarioDTO;
 
 @Entity
 @Table(name="servicosEmail")
@@ -19,7 +19,7 @@ public class ServicoEmail {
 	@Column(name = "idServicoEmail", updatable = false, nullable = false)
 	private Long idServicoEmail;
 	@ManyToOne
-	private Usuario usuario;
+	private UsuarioDTO usuario;
 	@Column(length = 64)
 	private String nome;
 	@Column(length = 64)
@@ -36,10 +36,10 @@ public class ServicoEmail {
 	public void setIdServicoEmail(Long idServicoEmail) {
 		this.idServicoEmail = idServicoEmail;
 	}
-	public Usuario getUsuario() {
+	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
 	}
 	public String getNome() {

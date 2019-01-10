@@ -19,16 +19,20 @@ public class UsuarioDAO {
 	 * @param idUsuario - Usuario digitado no form de login
 	 * @param pass - Password digitado no form de login
 	 */
-	protected Usuario validaLogin(String idUsuario, String pass) {
+	protected UsuarioVO validaLogin(String idUsuario, String pass) {
 		if(pass==null) {
 			pass="";
 		}
 		pass=encriptaSenha(pass);
-		Usuario usuario;
+		UsuarioDTO usuario;
+		UsuarioVO usuarioVO = new UsuarioVO();
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		usuario = manager.find(Usuario.class, idUsuario);
+		usuario = manager.find(UsuarioDTO.class, idUsuario);
 		if(usuario !=null && pass.equals(usuario.getSenha())) {
-			return usuario;
+			usuarioVO.setIdUsuario(usuario.getIdUsuario());
+			usuarioVO.setDataInscricao(usuario.getDataInscricao());
+			usuarioVO.setAtivo(usuario.isAtivo());
+			return usuarioVO;
 		} else {
 			return null;
 		}	
@@ -37,7 +41,7 @@ public class UsuarioDAO {
 	protected boolean validaEmail(String idUsuario) {
 		boolean existente=false;
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		Usuario usuario = manager.find(Usuario.class, idUsuario);
+		UsuarioDTO usuario = manager.find(UsuarioDTO.class, idUsuario);
 		if(usuario!=null) {
 			existente=true;
 		}
@@ -51,7 +55,7 @@ public class UsuarioDAO {
 	protected void criaConta(String user, String pass) {
 		Date now = new Date();  
 		pass=encriptaSenha(pass);
-		Usuario usuario = new Usuario();
+		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setIdUsuario(user);
 		usuario.setSenha(pass);
 		usuario.setAtivo(false);
@@ -72,7 +76,7 @@ public class UsuarioDAO {
 	protected boolean ativaUsuario(int id) {
 		boolean retorno;
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
-		Usuario usuario = manager.find(Usuario.class, id);
+		UsuarioDTO usuario = manager.find(UsuarioDTO.class, id);
 		try {
 			usuario.setAtivo(true);
 			manager.getTransaction().begin();

@@ -11,7 +11,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<!-- entidades mapeadas -->
-		<class>usuario.Usuario</class>
+		<class>usuario.UsuarioDTO</class>
 		<class>mail.ServicoEmail</class>
 
 		<properties>
