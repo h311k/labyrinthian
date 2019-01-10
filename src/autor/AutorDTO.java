@@ -20,7 +20,7 @@ import usuario.UsuarioDTO;
  */
 @Entity
 @Table(name="autores")
-public class AutorDTO implements Serializable {
+public class AutorDTO extends Autor implements Serializable {
 	
 	@Id
 	@OneToOne
