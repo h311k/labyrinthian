@@ -13,6 +13,7 @@
 		<!-- entidades mapeadas -->
 		<class>usuario.UsuarioDTO</class>
 		<class>autor.AutorDTO</class>
+		<class>post.PostDTO</class>
 		<class>mail.ServicoEmail</class>
 
 		<properties>
