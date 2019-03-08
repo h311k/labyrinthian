@@ -22,6 +22,8 @@ import usuario.UsuarioDTO;
 @Table(name="autores")
 public class AutorDTO extends Autor implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@OneToOne
 	@JoinColumn(name = "idUsuario")

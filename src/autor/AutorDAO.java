@@ -37,7 +37,6 @@ public class AutorDAO implements ObjetoDAO<AutorDTO> {
 
 	@Override
 	public List<AutorDTO> getList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
