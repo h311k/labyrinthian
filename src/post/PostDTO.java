@@ -1,8 +1,12 @@
 package post;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,7 +48,10 @@ public class PostDTO extends Post {
 	@Column(columnDefinition = "TEXT")
 	private String conteudo;
 	
-	private String tags;
+	@ElementCollection
+	@CollectionTable(name="tags")
+	@Column(length = 32)
+	private Set<String> tags = new HashSet<>();
 	
 	private boolean arquivado;
 	
@@ -106,11 +113,12 @@ public class PostDTO extends Post {
 		this.conteudo = conteudo;
 	}
 
-	public String getTags() {
+
+	public Set<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(String tags) {
+	public void setTags(Set<String> tags) {
 		this.tags = tags;
 	}
 
