@@ -11,9 +11,9 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<!-- entidades mapeadas -->
-		<class>usuario.UsuarioDTO</class>
-		<class>autor.AutorDTO</class>
-		<class>post.PostDTO</class>
+		<class>usuario.Usuario</class>
+		<class>autor.Autor</class>
+		<class>post.Post</class>
 		<class>mail.ServicoEmail</class>
 
 		<properties>

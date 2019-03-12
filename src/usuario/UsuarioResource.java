@@ -14,7 +14,7 @@ public class UsuarioResource {
 	@Path("/autenticausuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsuario(UsuarioDTO usuario) {
+	public Response getUsuario(Usuario usuario) {
 		UsuarioController uc = new UsuarioController();
 		String jsonRetorno = uc.autenticaUsuario(usuario.getIdUsuario(), usuario.getSenha());
 		return Response.status(200).entity(jsonRetorno).build();

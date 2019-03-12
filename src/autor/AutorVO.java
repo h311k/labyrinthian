@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class AutorVO extends Autor{
+public class AutorVO {
 
 	private String idUsuario;
 	private String nome;
