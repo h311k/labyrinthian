@@ -4,17 +4,20 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import post.tag.Tag;
 import usuario.Usuario;
 
 /**
@@ -41,20 +44,22 @@ public class Post {
 	@Column(length = 120)
 	private String subtitulo;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataPublicacao;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataAtualizacao;
 	
 	@Column(columnDefinition = "TEXT")
 	private String conteudo;
 	
-	@ElementCollection
-	@CollectionTable(name="tags")
-	@Column(length = 32)
-	private Set<String> tags = new HashSet<>();
+	@ManyToMany
+	@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "idPost"), inverseJoinColumns = @JoinColumn(name = "idTag"))
+	private Set<Tag> tags = new HashSet<>();
 	
 	private boolean arquivado;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataArquivamento;
 
 	public long getIdPost() {
@@ -113,12 +118,11 @@ public class Post {
 		this.conteudo = conteudo;
 	}
 
-
-	public Set<String> getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(Set<String> tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 

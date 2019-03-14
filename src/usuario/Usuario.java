@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author haony
  * 
@@ -21,8 +24,10 @@ public class Usuario {
 	@Column(name = "idUsuario", length = 64, updatable = false, nullable = false)
 	private String idUsuario;
 	private boolean ativo;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataInscricao;
 	@Column(length = 64)
+	@JsonIgnore
 	private String senha;
 	
 	public void setIdUsuario(String idUsuario) {

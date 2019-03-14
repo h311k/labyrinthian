@@ -19,20 +19,19 @@ public class UsuarioDAO {
 	 * @param idUsuario - Usuario digitado no form de login
 	 * @param pass - Password digitado no form de login
 	 */
-	protected UsuarioVO validaLogin(String idUsuario, String pass) {
+	protected Usuario validaLogin(String idUsuario, String pass) {
 		if(pass==null) {
 			pass="";
 		}
 		pass=encriptaSenha(pass);
 		Usuario usuario;
-		UsuarioVO usuarioVO = new UsuarioVO();
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
 		usuario = manager.find(Usuario.class, idUsuario);
 		if(usuario !=null && pass.equals(usuario.getSenha())) {
-			usuarioVO.setIdUsuario(usuario.getIdUsuario());
-			usuarioVO.setDataInscricao(usuario.getDataInscricao());
-			usuarioVO.setAtivo(usuario.isAtivo());
-			return usuarioVO;
+			usuario.setIdUsuario(usuario.getIdUsuario());
+			usuario.setDataInscricao(usuario.getDataInscricao());
+			usuario.setAtivo(usuario.isAtivo());
+			return usuario;
 		} else {
 			return null;
 		}	

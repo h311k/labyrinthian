@@ -10,20 +10,21 @@
 		<!-- provedor/implementacao do JPA -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-		<!-- entidades mapeadas -->
-		<class>usuario.Usuario</class>
-		<class>autor.Autor</class>
-		<class>post.Post</class>
-		<class>mail.ServicoEmail</class>
-
 		<properties>
+			<!-- dados da conexao -->
+			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=labyrinthian" />
+			<property name="javax.persistence.jdbc.user" value="javarest" />
+			<property name="javax.persistence.jdbc.password" value="h311kVieir@" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			
 			<!-- Dados de conexao MySQL -->
 			
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://namastenso.mysql.uhserver.com:3306/labyrinthian?useTimezone=true&amp;serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="javarest" />
 			<property name="javax.persistence.jdbc.password" value="h311kVieir@" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> -->
 
 			<!-- propriedades do hibernate -->
 			<property name="hibernate.show_sql" value="true" />

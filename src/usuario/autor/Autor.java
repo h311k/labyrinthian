@@ -1,4 +1,4 @@
-package autor;
+package usuario.autor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import usuario.Usuario;
 
@@ -32,6 +34,7 @@ public class Autor implements Serializable {
 	private String nome;
 	@Column(length = 120)
 	private String sobrenome;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 	@Column(length = 120)
 	private String biografia;

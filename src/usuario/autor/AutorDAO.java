@@ -1,4 +1,4 @@
-package autor;
+package usuario.autor;
 
 import java.util.List;
 
@@ -28,11 +28,10 @@ public class AutorDAO implements ObjetoDAO<Autor> {
 	}
 
 	@Override
-	public AutorVO find(Autor autor) {
+	public Autor find(Autor autor) {
 		EntityManager manager = FabricaConexao.getFactory().createEntityManager();
 		autor = manager.find(Autor.class, autor.getIdUsuario());
-		AutorVO autorVo = new AutorVO(autor.getIdUsuario().getIdUsuario(), autor.getNome(), autor.getSobrenome(), autor.getDataNascimento(), autor.getBiografia(), autor.getUrlFotoPerfil());
-		return autorVo;
+		return autor;
 	}
 
 	@Override
