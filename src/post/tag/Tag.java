@@ -1,9 +1,8 @@
 package post.tag;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,5 +30,35 @@ public class Tag implements Serializable {
 	
 	@ManyToMany
 	@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "idTag"), inverseJoinColumns = @JoinColumn(name = "idPost"))
-	private Set<Post> posts = new HashSet<>();
+	private List<Post> posts = new ArrayList<>();
+
+	public long getIdTag() {
+		return idTag;
+	}
+
+	public void setIdTag(long idTag) {
+		this.idTag = idTag;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

@@ -1,8 +1,8 @@
 package post;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,7 +55,7 @@ public class Post {
 	
 	@ManyToMany
 	@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "idPost"), inverseJoinColumns = @JoinColumn(name = "idTag"))
-	private Set<Tag> tags = new HashSet<>();
+	private List<Tag> tags = new ArrayList<>();
 	
 	private boolean arquivado;
 	
@@ -118,11 +118,11 @@ public class Post {
 		this.conteudo = conteudo;
 	}
 
-	public Set<Tag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(Set<Tag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
